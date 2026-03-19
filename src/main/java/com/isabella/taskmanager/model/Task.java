@@ -12,9 +12,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titulo;
+    private String title;
 
-    private String descricao;
+    private String description;
 
     private String status;
 

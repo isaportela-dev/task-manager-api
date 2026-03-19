@@ -39,8 +39,8 @@ public class TaskController {
             return null;
         }
 
-        task.setTitulo(taskAtualizada.getTitulo());
-        task.setDescricao(taskAtualizada.getDescricao());
+        task.setTitle(taskAtualizada.getTitle());
+        task.setDescription(taskAtualizada.getDescription());
         task.setStatus(taskAtualizada.getStatus());
 
         return repository.save(task);
