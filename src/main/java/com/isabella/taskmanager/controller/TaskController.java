@@ -17,37 +17,37 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> listar() {
+    public List<Task> getAllTasks() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Task buscarPorId(@PathVariable Long id) {
+    public Task getTaskById(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @PostMapping
-    public Task criar(@RequestBody Task task) {
+    public Task createTask(@RequestBody Task task) {
         return repository.save(task);
     }
 
     @PutMapping("/{id}")
-    public Task atualizar(@PathVariable Long id, @RequestBody Task taskAtualizada) {
+    public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
         Task task = repository.findById(id).orElse(null);
 
         if (task == null) {
             return null;
         }
 
-        task.setTitle(taskAtualizada.getTitle());
-        task.setDescription(taskAtualizada.getDescription());
-        task.setStatus(taskAtualizada.getStatus());
+        task.setTitle(updatedTask.getTitle());
+        task.setDescription(updatedTask.getDescription());
+        task.setStatus(updatedTask.getStatus());
 
         return repository.save(task);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public void deleteTask(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }
