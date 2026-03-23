@@ -16,7 +16,8 @@ public class Task {
 
     private String description;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
