@@ -1,34 +1,19 @@
 # ✅ Task Manager API
 
-A full stack task management application built with Java, Spring Boot, and a custom frontend (HTML, CSS, JavaScript).
+A full stack task management application built with **Java, Spring Boot, and a custom frontend (HTML, CSS, JavaScript)**.
 
-This project allows users to create, update, and manage tasks in a simple and intuitive interface, demonstrating core backend concepts and API integration.
+This project demonstrates backend development concepts such as RESTful APIs, data persistence, and integration with a frontend interface.
 
-🔗 Live Demo: https://task-manager-api-three-opal.vercel.app
+## 🌐 Live Project
 
-🔗 API Base URL: https://task-manager-api-production-30cb.up.railway.app/tasks
+👉 Frontend: https://task-manager-api-three-opal.vercel.app  
+👉 Backend API: https://task-manager-api-production-30cb.up.railway.app/tasks
 
 - Backend development with Java and Spring Boot
 - RESTful API design
 - Integration between frontend and backend
 
 > 💡 Projeto desenvolvido com foco em aprendizado de desenvolvimento backend com Java, Spring Boot e boas práticas de APIs REST.
-
----
-
-## 🎨 Frontend
-
-This project also includes a simple frontend built with HTML, CSS, and JavaScript to interact with the API.
-
-### Features:
-- Create tasks
-- Edit tasks
-- Delete tasks
-- View tasks with status badges
-- Clean and modern UI
-
-📍 Frontend location:
-/frontend/index.html
 
 ---
 
@@ -132,7 +117,7 @@ index.html
 
 ## 📸 Screenshots
 
-### Task Manager UI
+### 🖥️ Task Manager Interface
 
 ![Task Manager UI](./frontend/screenshot.png)
 
