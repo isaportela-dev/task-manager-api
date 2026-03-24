@@ -1,8 +1,11 @@
 # ✅ Task Manager API
 
-REST API for task management built with Java, Spring Boot, and Spring Data JPA.
+A full stack task management application built with Java, Spring Boot, and a custom frontend (HTML, CSS, JavaScript).
 
-This project includes a simple frontend interface to interact with the API, making it a full stack application.
+This project allows users to create, update, and manage tasks in a simple and intuitive interface, demonstrating core backend concepts and API integration.
+
+🔗 Live Demo: https://task-manager-api-three-opal.vercel.app
+🔗 API Base URL: https://task-manager-api-production-30cb.up.railway.app/tasks
 
 - Backend development with Java and Spring Boot
 - RESTful API design
@@ -30,10 +33,12 @@ This project also includes a simple frontend built with HTML, CSS, and JavaScrip
 
 ## 🚀 Features
 
-* Create, read, update and delete tasks (CRUD)
-* Get task by ID
-* In-memory database using H2
-* Interactive API documentation with Swagger (OpenAPI)
+- Create, read, update, and delete tasks (CRUD)
+- Task status management (PENDING, IN_PROGRESS, COMPLETED)
+- RESTful API with Spring Boot
+- Integration between frontend and backend
+- Clean and responsive UI
+- Real-time updates after actions
 
 ---
 
@@ -86,29 +91,18 @@ src/main/java/com/isabella/taskmanager
 
 ### 🔧 Backend
 
-1. Clone the repository:
+Clone the repository:
 
-```bash
-git clone https://github.com/SEU-USUARIO/task-manager-api.git
-```
-
-2. Navigate to the project folder:
-
-```bash
+git clone https://github.com/isaportela-dev/task-manager-api.git
 cd task-manager-api
-```
 
-3. Run the application:
+Run the backend:
 
-```bash
 ./mvnw spring-boot:run
-```
 
-📍 The API will be available at:
+The API will be available at:
+
 http://localhost:8080/tasks
-
-📍 Swagger documentation:
-http://localhost:8080/swagger-ui/index.html
 
 ---
 
