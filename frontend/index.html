@@ -1,91 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Task Manager</title>
   <style>
-    body {
-      font-family: Arial;
-      max-width: 600px;
-      margin: 40px auto;
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    input, button {
-      padding: 10px;
-      margin: 5px 0;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #111827;
+    }
+
+    h2 {
+      margin-top: 35px;
+      color: #111827;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-top: -10px;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    input, button, select {
       width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    button {
+      border: none;
+      background: #4f46e5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #4338ca;
     }
 
     .task {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-top: 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .task-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #111827;
+    }
+
+    .task-description {
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-progress {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .status-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      margin-bottom: 0;
+    }
+
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+
+    .empty-message {
+      color: #6b7280;
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    <p class="subtitle">Simple full stack task manager using Spring Boot + HTML/CSS/JavaScript</p>
 
-<h1>Task Manager</h1>
+    <input id="title" type="text" placeholder="Task title" />
+    <input id="description" type="text" placeholder="Task description" />
 
-<input id="title" placeholder="Title">
-<input id="description" placeholder="Description">
-<button onclick="createTask()">Add Task</button>
+    <select id="status">
+      <option value="PENDING">PENDING</option>
+      <option value="IN_PROGRESS">IN PROGRESS</option>
+      <option value="COMPLETED">COMPLETED</option>
+    </select>
 
-<h2>Tasks</h2>
-<div id="tasks"></div>
+    <button onclick="createTask()">Add Task</button>
 
-<script>
-const API_URL = "http://localhost:8082/tasks";
+    <h2>Tasks</h2>
+    <div id="tasks"></div>
+  </div>
 
-async function loadTasks() {
-  const response = await fetch(API_URL);
-  const tasks = await response.json();
+  <script>
+    const API_URL = "http://localhost:8082/tasks";
 
-  const container = document.getElementById("tasks");
-  container.innerHTML = "";
+    function getStatusClass(status) {
+      if (status === "PENDING") return "status-badge status-pending";
+      if (status === "IN_PROGRESS") return "status-badge status-progress";
+      if (status === "COMPLETED") return "status-badge status-completed";
+      return "status-badge";
+    }
 
-  tasks.forEach(task => {
-    const div = document.createElement("div");
-    div.className = "task";
-    div.innerHTML = `
-      <strong>${task.title}</strong><br>
-      ${task.description}<br>
-      Status: ${task.status}<br>
-      <button onclick="deleteTask(${task.id})">Delete</button>
-    `;
-    container.appendChild(div);
-  });
-}
+    async function loadTasks() {
+      const response = await fetch(API_URL);
+      const tasks = await response.json();
 
-async function createTask() {
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
+      const container = document.getElementById("tasks");
+      container.innerHTML = "";
 
-  await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      title,
-      description,
-      status: "PENDING"
-    })
-  });
+      if (tasks.length === 0) {
+        container.innerHTML = `<p class="empty-message">No tasks yet.</p>`;
+        return;
+      }
 
-  loadTasks();
-}
+      tasks.forEach(task => {
+        const div = document.createElement("div");
+        div.className = "task";
 
-async function deleteTask(id) {
-  await fetch(`${API_URL}/${id}`, {
-    method: "DELETE"
-  });
+        div.innerHTML = `
+          <div class="task-title">${task.title}</div>
+          <div class="task-description">${task.description}</div>
+          <div class="task-meta">
+            <span class="${getStatusClass(task.status)}">${task.status}</span>
+            <small>Created at: ${task.createdAt ?? "-"}</small>
+          </div>
+          <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+        `;
 
-  loadTasks();
-}
+        container.appendChild(div);
+      });
+    }
 
-loadTasks();
-</script>
+    async function createTask() {
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const status = document.getElementById("status").value;
 
+      if (!title || !description) {
+        alert("Please fill in title and description.");
+        return;
+      }
+
+      await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          status
+        })
+      });
+
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("status").value = "PENDING";
+
+      loadTasks();
+    }
+
+    async function deleteTask(id) {
+      await fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+      });
+
+      loadTasks();
+    }
+
+    loadTasks();
+  </script>
 </body>
 </html>
