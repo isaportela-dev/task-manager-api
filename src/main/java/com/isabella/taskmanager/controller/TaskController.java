@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 @Tag(name = "Tasks", description = "Task management operations")
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500"})
 public class TaskController {
 
     private final TaskRepository repository;
