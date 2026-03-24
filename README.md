@@ -139,7 +139,7 @@ index.html
 
 ### Task Manager UI
 
-![Task Manager](./frontend/screenshot.png)
+![Task Manager UI](./frontend/screenshot.png)
 
 ---
 
